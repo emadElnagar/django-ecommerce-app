@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            <h1 class="text-center main-heading">products</h1>
+            <div class="products">
+                {% for product in product_list %}
+                    <div class="product">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ product }}</h2>
+                        </div>
+                        <div class="product-main">
+                            <img src="{{ product.image.url }}">
+                            <div class="product-features">
+                                {% if product.discount %}
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
+                                {% endif %}
+                            </div>
+                            <div class="overlay">
+                                <a href="{% url 'shop:product_detail' product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            {{ product.get_price }} $
+                            {% if product.discount %}
+                               <span class="discount"><del><small>{{ product.price }} $</small></del><span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!--========== PAGINATION ==========-->
+            {% if page_obj.has_other_pages %}
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <span class="page-item">
+                            <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </span>
+                    {% endif %}
+                    {% for page in page_obj.paginator.page_range %}
+                        <span><a class="page-link" href="?page={{page}}">{{page}}</a></span>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <span class="page-item">
+                            <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </span>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+{% endblock body %}

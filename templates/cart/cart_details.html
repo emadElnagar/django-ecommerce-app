@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load cart %}
+    <section>
+        <div class="container">
+            {% if request.session.cart %}
+            <h1 class="main-heading text-center">your shopping cart</h1>
+            <table>
+                <tr>
+                    <th>product</th>
+                    <th>image</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                    <th>total price</th>
+                    <th>delete</th>
+                </tr>
+                {% for product in products %}
+                    <tr>
+                        <td>
+                            {{product}}
+                        </td>
+                        <td class="img-row"><img src="{{product.image.url}}"></td>
+                        <td>{{product.price}} $</td>
+                        <td>
+                            <!-- QUANTITY MINUS -->
+                            <form class="quantity-form" action="{% url 'cart:quantity_minus' product.slug %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_slug" value="{{product.slug}}">
+                                <button class="quantity-button">-</button>
+                            </form>
+                            <!-- QUANTITY -->
+                            {{product|cart_quantity:request.session.cart}}
+                            <!-- QUANTITY PLUS -->
+                            <form class="quantity-form" action="{% url 'cart:quantity_plus' product.slug %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_slug" value="{{product.slug}}">
+                                <button class="quantity-button">+</button>
+                            </form>
+                        </td>
+                        <td>{{product|total_price:request.session.cart}} $</td>
+                        <td>
+                            <form title="Remove {{product}}" action="{% url 'cart:remove_from_cart' product.slug %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_slug" value="{{product.slug}}">
+                                <button type="submit" class="add-to-wishlist">
+                                    <i class="fas fa-trash-alt fa-fw"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tfooter>
+                    <th class="total-price" colspan="4">total price</th>
+                    <th>{{products|total_cart_price:request.session.cart}} $</th>
+                    <td>
+                        <form title="Remove All" action="{% url 'cart:clear_cart' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="add-to-wishlist">
+                                <i class="fas fa-trash-alt fa-fw"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tfooter>
+            </table>
+            <div class="checkout">
+                <button class="checkout-button">checkout</button>
+            </div>
+            {% else %}
+                <h1 class="main-heading text-center">your shopping cart is empty now</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if profile.image %}
+                <img src="{{profile.image.url}}">
+            {% endif %}
+            <h1 class="text-center">{{profile.user}}</h1>
+            {% if profile.shop %}
+                <h2 class="text-center">the owner of <span class="shop-name">{{profile.shop}}</span></h2>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}

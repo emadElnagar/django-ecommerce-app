@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+    <section>
+        <div class="container">
+            <h1 class="text-center main-heading">{{ product }}</h1>
+            <div class="product-details">
+                <div class="product-img">
+                    {% if request.user == product.owner %}
+                        <div class="dropdown-menu">
+                            <button class="menu-btn">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div class="menu-content">
+                                <a class="links" href="{% url 'shop:product_delete' product.slug %}">
+                                    delete <i class="fas fa-trash-alt fa-fw"></i>
+                                </a>
+                                <a class="links" href="{% url 'shop:product_update' product.slug %}">
+                                    update <i class="fas fa-wrench fa-fw"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    {% endif %}
+                    <img src="{{ product.image.url }}">
+                    <div class="product-features">
+                        {% if product.discount %}
+                            <span class="text-center sale">sale !</span>
+                        {% endif %}
+                        {% if product.is_BestSeller == True %}
+                            <span class="text-center bestseller">bestseller</span>
+                        {% endif %}
+                        {% if product.is_featured == True %}
+                            <span class="text-center featured">featured</span>
+                        {% endif %}
+                        {% if product.is_valid == False %}
+                            <span class="text-center soldout">sold out</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="product-info">
+                    <ul>
+                        <li>
+                            {{ product.get_price }} $
+                            {% if product.discount %}
+                                <span class="discount"><del><small>{{ product.price }} $</small></del></span><br>
+                                <small><span class="discount-percent">{{ product.get_discount_percent }}</span></small>
+                            {% endif %}
+                        </li>
+
+                        {% if reviews_avg != None %}
+                            <li class="rating-stars">
+                                <i class="
+                                    {% if reviews_avg >= 1 %}
+                                        fas fa-star checked
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if reviews_avg >= 2 %}
+                                        fas fa-star
+                                    {% elif reviews_avg >= 1.5 %}
+                                        fas fa-star-half-alt
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if reviews_avg >= 3 %}
+                                        fas fa-star
+                                    {% elif reviews_avg >= 2.5 %}
+                                        fas fa-star-half-alt
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if reviews_avg >= 4 %}
+                                        fas fa-star
+                                    {% elif reviews_avg >= 3.5 %}
+                                        fas fa-star-half-alt
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if reviews_avg >= 5 %}
+                                        fas fa-star
+                                    {% elif reviews_avg >= 4.5 %}
+                                        fas fa-star-half-alt
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                <span>{{reviews_avg}}</span>
+                                <small>({{reviews_count}} reviews)</small>
+                            </li>
+                        {% endif %}
+
+                        {% if product.category %}
+                            <li>
+                                <a href="{% url 'shop:category_detail' product.category.slug %}">
+                                    {{ product.category }}
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% if product.is_valid == True %}
+                            <li>in stock</li>
+                        {% endif %}
+
+                        <li>{{ product.description }}</li>
+                        <li>By : <a href="{% url 'accounts:profile' product.owner.profile.id %}" class="shop-name">{{ product.owner.profile.shop }}</a></li>
+                    </ul>
+                    <div class="product-act">
+                        <!-- ADD TO CART FORM -->
+                        <form action="{% url 'cart:add_to_cart' product.slug %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">
+                                add to cart <i class="fas fa-shopping-cart fa-fw"></i>
+                            </button>
+                        </form>
+                        <!-- ADD TO WISHLIST FORM -->
+                        <form action="{% url 'shop:product_wishlist' product.slug %}" method="POST">
+                            {% csrf_token %}
+                            {% if request.user in product.wished.all %}
+                                <button type="submit" class="add-to-wishlist">
+                                    <i class="fas fa-heart fa-fw"></i>
+                                </button>
+                            {% else %}
+                                <button type="submit" class="add-to-wishlist">
+                                    <i class="far fa-heart fa-fw"></i>
+                                </button>
+                            {% endif %}
+                        </form>
+                    </div>
+                    {% if messages %}
+                        <div class="message">
+                            {% for message in messages %}
+                                <span> {{ message }} <i class="fa fa-check-circle" aria-hidden="true"></i> </span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="reviews">
+                <div class="review-details">
+                    {% if reviews %}
+                        <h2 class="text-center">reviews</h2>
+                        {% if reviews_count == 1 %}
+                            <h4>1 review</h4>
+                        {% else %}
+                            <h4>{{reviews_count}} reviews</h4>
+                        {% endif %}
+                    {% endif %}
+                    {% for review in reviews %}
+                        <div class="user-review">
+                            <div class="review-author">
+                                <a href="{% url 'accounts:profile' review.user.profile.id %}">
+                                    {% if review.user.profile.image %}
+                                        <img
+                                            src="{{review.user.profile.image.url}}"
+                                            class="review-author-image" >
+                                    {% else %}
+                                        <img
+                                            src="{% static 'img/default-user-image.png' %}"
+                                            class="review-author-image" >
+                                    {% endif %}
+                                    <b><span>{{review.user}}</span></b>
+                                </a>
+                                <span>
+                                    {{review.created_at|date:"d M o"}}
+                                </span>
+                            </div>
+                            <div class="review-stars">
+                                <i class="
+                                    {% if review.rate >= 1 %}
+                                        fas fa-star checked
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if review.rate >= 2 %}
+                                        fas fa-star
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if review.rate >= 3 %}
+                                        fas fa-star
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if review.rate >= 4 %}
+                                        fas fa-star
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                                
+                                <i class="
+                                    {% if review.rate == 5 %}
+                                        fas fa-star
+                                    {% else %}
+                                        far fa-star
+                                    {% endif %}">
+                                </i>
+                            </div>
+                            <div class="review-comment">
+                                {{review.comment}}
+                                <hr>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="review-form">
+                    <h2>your review</h2>
+                    <form class="my-form" method="POST">
+                        <input type="hidden" name="product_id" id="product_id" value="{{product.id}}">
+                        <input type="hidden" name="product_id" id="product_id" value="6">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="vc2ylVIO1T4BkFqUXEc8uKayoNKZGVOXuLeInvN9n1BFrNxVGG1WyIanZYD5uU9M">
+                        <label for="id_comment">Comment :</label>
+                        <textarea name="comment" cols="40" rows="10" required id="id_comment"></textarea>
+                        <div class="rating">
+                            <label for="id_comment">Rate :</label>
+                            <input name="rate" required id="demo-1" type="radio" value="1"> 
+                            <label for="demo-1">1 star</label>
+                            <input name="rate" required id="demo-2" type="radio" value="2">
+                            <label for="demo-2">2 stars</label>
+                            <input name="rate" required id="demo-3" type="radio" value="3">
+                            <label for="demo-3">3 stars</label>
+                            <input name="rate" required id="demo-4" type="radio" value="4">
+                            <label for="demo-4">4 stars</label>
+                            <input name="rate" required id="demo-5" type="radio" value="5">
+                            <label for="demo-5">5 stars</label>
+                            <div class="stars">
+                                <label for="demo-1" aria-label="1 star" title="Bad"></label>
+                                <label for="demo-2" aria-label="2 stars" title="Normal"></label>
+                                <label for="demo-3" aria-label="3 stars" title="Good"></label>
+                                <label for="demo-4" aria-label="4 stars" title="Very Good"></label>
+                                <label for="demo-5" aria-label="5 stars" title="Excelent"></label>   
+                            </div>
+                        </div>
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                            <input type="submit" class="my-button" value="post">
+                        {% else %}
+                            <a href="/accounts/login?next=/shop/products/{{product.slug}}">login</a> to review
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        {% if related_products %}
+            <h2 class="text-center main-heading">related products</h2>
+        {% endif %}
+        <div class="container">
+            <div class="products">
+                {% for related_product in related_products %}
+                    <div class="product">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ related_product }}</h2>
+                        </div>
+                        <div class="product-main">
+                            <img src="{{ related_product.image.url }}">
+                            <div class="product-features">
+                                {% if related_product.discount %}
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if related_product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if related_product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if related_product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
+                                {% endif %}
+                            </div>
+                            <div class="overlay">
+                                <a href="{% url 'shop:product_detail' related_product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            {{ related_product.get_price }} $
+                            {% if related_product.discount %}
+                            <span class="discount"><del><small>{{ related_product.price }} $</small></del><span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            {% if other_products %}
+                <h2 class="text-center main-heading">
+                    other products by
+                    <a href="{% url 'accounts:profile' product.owner.profile.id %}" class="shop-name">
+                        {{product.owner.profile.shop}}
+                    </a>
+                </h2>
+            {% endif %}
+            <div class="products">
+                {% for other_product in other_products %}
+                    <div class="product">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ other_product }}</h2>
+                        </div>
+                        <div class="product-main">
+                            <img src="{{ other_product.image.url }}">
+                            <div class="product-features">
+                                {% if other_product.discount %}
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if other_product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if other_product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if other_product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
+                                {% endif %}
+                            </div>
+                            <div class="overlay">
+                                <a href="{% url 'shop:product_detail' other_product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            {{ other_product.get_price }} $
+                            {% if other_product.discount %}
+                                <span class="discount"><del><small>{{ other_product.price }} $</small></del><span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock body %}

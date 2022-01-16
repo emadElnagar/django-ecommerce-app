@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if products %}
+                <h1 class="text-center main-heading">wishlist</h1>
+                <table>
+                    <tr>
+                        <th>product</th>
+                        <th>image</th>
+                        <th>price</th>
+                        <th>stock status</th>
+                        <th>add to cart</th>
+                    </tr>
+                    {% for product in products %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'shop:product_detail' product.slug %}">
+                                    {{product}}
+                                </a>
+                            </td>
+                            <td class="img-row"><img src="{{product.image.url}}"></td>
+                            <td>{{product.get_price}}$</td>
+                            {% if product.is_valid == True %}
+                                <td>in stock</td>
+                            {% else %}
+                                <td>sold out</td>
+                            {% endif %}
+                            <td>
+                                <form action="{% url 'cart:add_to_cart' product.slug %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_slug" value="{{product.slug}}">
+                                    <button>add to cart</button>
+                                </from>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <h1 class="text-center">no products added to your wishlist yet</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}

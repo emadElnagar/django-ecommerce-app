@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <h2>User : {{ user.get_username }}</h2>
+                <a href="{% url 'logout'%}" class="btn btn-primary submit">Logout</a>
+            {% else %}
+                <form method="post" class="my-form">
+                    {{form.as_ul}}
+                    {% csrf_token %}
+                    <input type="submit" value="signup" class="my-button" />
+                </form>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

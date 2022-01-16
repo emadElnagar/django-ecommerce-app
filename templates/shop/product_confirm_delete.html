@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+        <section>
+            <div class="container">
+                {% if request.user == product.owner %}
+                    <h1 class="text-center">are you sure you want to delte category {{product}} ?</h1>
+                    <form method="POST" class="my-form">
+                        {% csrf_token %}
+                        <div class="confirm">
+                            <button type="submit">delete</button>
+                            <button type=button value="cancel" class="cancel" onClick="javascript:history.go(-1);">cancel</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <h1 class="text-center">sorry! you aren't allowed here</h1>
+                {% endif %}
+            </div>
+        </section>
+{% endblock body %}

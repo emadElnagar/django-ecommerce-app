@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if request.user == product.owner %}
+                <h1>create new product</h1>
+                <form method="POST" enctype="multipart/form-data" class="my-form">
+                    {{form.as_ul}}
+                    {% csrf_token %}
+                    <button type="submit">post</button>
+                </form>
+            {% else %}
+                <h1>sorry! you aren't allowed here</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}

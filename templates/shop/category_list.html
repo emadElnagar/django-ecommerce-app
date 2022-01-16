@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if request.user.is_staff %}
+                <a class="add" href="{% url 'shop:category_create' %}">
+                    <i class="fa fa-plus fa-fw"></i> add category
+                </a>
+            {% endif %}
+            <h1 class="main-heading text-center">category list</h1>
+            <div class="categories">
+                {% for category in category_list %}
+                    <div class="category">
+                        <a href="{% url 'shop:category_detail' category.slug %}">
+                            <div class="category-heading">
+                                <h2 class="text-center">{{ category }}</h2>
+                            </div>
+                            <div class="category-img">
+                                <img src="{{ category.image.url }}">
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock body %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+    <section>
+        <div class="container">
+            {% if name %}
+            <h1 class="text-center main-heading">searched products</h1>
+            <div class="products">
+                {% for product in products %}
+                    <div class="product">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ product }}</h2>
+                        </div>
+                        <div class="product-main">
+                            <img src="{{ product.image.url }}">
+                            <div class="product-features">
+                                {% if product.discount %}
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
+                                {% endif %}
+                            </div>
+                            <div class="overlay">
+                                <a href="{% url 'shop:product_detail' product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            {{ product.get_price }} $
+                            {% if product.discount %}
+                               <span class="discount"><del><small>{{ product.price }} $</small></del><span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <h1 class="text-center main-heading">no results to view</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}
