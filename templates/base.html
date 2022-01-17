@@ -24,6 +24,7 @@
                     </a>
                     <a href="{% url 'cart:cart_details' %}">
                         <i class="fas fa-shopping-cart fa-fw"></i>
+                        {{ request.session.cart|length }}
                     </a>
                 </div>
             </div>

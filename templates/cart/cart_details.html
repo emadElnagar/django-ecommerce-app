@@ -62,8 +62,11 @@
                     </td>
                 </tfooter>
             </table>
-            <div class="checkout">
-                <button class="checkout-button">checkout</button>
+            <div class="checkout-cart">
+                <div class="checkout">
+                    <h1> {{products|quantity_total:request.session.cart}} items in stock</h1>
+                    <button class="checkout-button">checkout</button>
+                </div>
             </div>
             {% else %}
                 <h1 class="main-heading text-center">your shopping cart is empty now</h1>
