@@ -62,14 +62,17 @@
                     </td>
                 </tfooter>
             </table>
-            <div class="checkout-cart">
+            <div class="checkout-card">
                 <div class="checkout">
                     <h1> {{products|quantity_total:request.session.cart}} items in stock</h1>
-                    <button class="checkout-button">checkout</button>
+                    <a class="checkout-button" href="{% url 'cart:place_order' %}">checkout</a>
                 </div>
             </div>
             {% else %}
                 <h1 class="main-heading text-center">your shopping cart is empty now</h1>
+                <div class="continue-shopping">
+                    <a href="{% url 'shop:product_list' %}">continue shopping</a>
+                </div>
             {% endif %}
         </div>
     </section>

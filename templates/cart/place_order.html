@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+<section>
+    <div class="container">
+        <form class="my-form" method="POST" action="{% url 'cart:checkout' %}">
+            {% csrf_token %}
+            <label>country</label>
+            <input type="text" name="country" required>
+            <label>city</label>
+            <input type="text" name="city" required>
+            <label>address</label>
+            <input type="text" name="address" required>
+            <label>phone</label>
+            <input type="text" name="phone" required>
+            <label>phone 2 (optional)</label>
+            <input type="text" name="phoneTwo">
+            <button type="submit" style="margin-top:20px">submit</button>
+        </form>
+    </div>
+</section>
+{% endblock body %}

@@ -1,7 +1,10 @@
+from itertools import product
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from shop.models import Product
 from django.contrib import messages
+from .models import Order
+from django.contrib.auth.decorators import login_required
 
 
 def add_to_cart(request, slug):
@@ -74,3 +77,38 @@ def clear_cart(request):
         cart.clear()
     request.session['cart'] = cart
     return redirect(reverse('cart:cart_details'))
+
+
+@login_required
+def place_order(request):
+    """ JUST A VIEW TO RETURN A FORM PAGE TO ENTER CHECKOUT DATA """
+    return render(request, 'cart/place_order.html', {})
+
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        country = request.POST.get('country')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+        phoneTwo = request.POST.get('phoneTwo')
+        customer = request.user
+        cart = request.session.get('cart')
+        products = Product.get_products_by_slug(list(cart.keys()))
+        
+        for product in products:
+            order = Order(
+                country = country,
+                city = city,
+                address = address,
+                phone = phone,
+                phoneTwo = phoneTwo,
+                customer = customer,
+                price = product.price,
+                product = product,
+                quantity = cart.get(str(product.slug))
+            )
+            order.placeOrder()
+        request.session['cart'] = {}
+    return redirect('shop:product_list')

@@ -24,7 +24,9 @@
                     </a>
                     <a href="{% url 'cart:cart_details' %}">
                         <i class="fas fa-shopping-cart fa-fw"></i>
-                        {{ request.session.cart|length }}
+                        {% if request.session.cart|length > 0 %}
+                            {{ request.session.cart|length }}
+                        {% endif %}
                     </a>
                 </div>
             </div>
