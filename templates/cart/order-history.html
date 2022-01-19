@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load cart %}
+    <section>
+        <div class="container">
+            {% if orders %}
+                <h1 class="text-center">your orders history</h1>
+                <table>
+                    <tr>
+                        <th>product</th>
+                        <th>image</th>
+                        <th>price</th>
+                        <th>quantity</th>
+                        <th>total price</th>
+                        <th>status</th>
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{order.product}}</td>
+                            <td class="img-row"><img src="{{order.product.image.url}}"></td>
+                            <td>{{order.price}} $</td>
+                            <td>{{order.quantity}}</td>
+                            <td>{{order.quantity|order_total_price:order.price}}</td>
+                            <td> {{order.status|default:'pending'}} </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <h1 class="text-center">no orders yet</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock body %}

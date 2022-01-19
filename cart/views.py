@@ -112,3 +112,9 @@ def checkout(request):
             order.placeOrder()
         request.session['cart'] = {}
     return redirect('shop:product_list')
+
+@login_required
+def OrderHistory(request):
+    customer = request.user
+    orders = Order.get_orders_by_customer(customer)
+    return render(request, 'cart/order-history.html', {'orders': orders})

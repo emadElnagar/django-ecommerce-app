@@ -25,3 +25,6 @@ ecommerce web app using django mltiple sellers
   * log out
   * reset password
   * delete account
+* order
+  * order checkout
+  * order history

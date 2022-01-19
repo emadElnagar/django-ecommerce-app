@@ -30,3 +30,8 @@ def number_of_products(products, cart):
     for product in products:
         quantity_total += cart_quantity(product, cart)
     return quantity_total
+
+
+@register.filter(name='order_total_price')
+def order_total_price(price, quantity):
+    return price * quantity
