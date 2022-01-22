@@ -59,6 +59,9 @@
                                 <a class="with-icon" href="{% url 'accounts:profile' user.profile.id %}">
                                     profile <i class="fas fa-id-badge"></i>
                                 </a>
+                                <a class="with-icon" href="{% url 'cart:order_history' %}">
+                                    orders history <i class="fas fa-history"></i>
+                                </a>
                                 <a class="with-icon" href="{% url 'logout' %}">
                                     logout <i class="fas fa-sign-out-alt"></i>
                                 </a>

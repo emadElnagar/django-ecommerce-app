@@ -16,22 +16,26 @@
     <section>
         <div class="container">
             {% if user.is_authenticated %}
-                <h2>you are already loged in, do you want to logout?</h2>
-                <a href="{% url 'logout'%}">Logout</a>
+                <div>
+                    <h2>you are already loged in, do you want to logout?</h2>
+                    <a href="{% url 'logout'%}">Logout</a>
+                </div>
             {% else %}
-                <form method="post" action="{% url 'login' %}" class="my-form">
-                    {{form}}
-                    {% csrf_token %}
-                    <input type="submit" value="login" class="my-button">
-                    {% if next %}
-                        <input type="hidden" name="next" value="{{ next }}">
-                    {% else %}
-                        <input type="hidden" name="next" value="{% url 'shop:product_list' %}">
-                    {% endif %}
-                </form>
-                <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-                <span>don't have account ?</span>
-                <a href="/accounts/signup">signup</a>
+                <div class="registration-form">
+                    <form method="post" action="{% url 'login' %}" class=" my-form">
+                        {{form}}
+                        {% csrf_token %}
+                        <input type="submit" value="login" class="my-button">
+                        {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}">
+                        {% else %}
+                            <input type="hidden" name="next" value="{% url 'shop:product_list' %}">
+                        {% endif %}
+                    </form>
+                    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                    <span>don't have account ?</span>
+                    <a href="/accounts/signup">signup</a>
+                </div>
             {% endif %}
         </div>
     </section>

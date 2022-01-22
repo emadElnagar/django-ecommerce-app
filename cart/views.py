@@ -81,8 +81,11 @@ def clear_cart(request):
 
 @login_required
 def place_order(request):
-    """ JUST A VIEW TO RETURN A FORM PAGE TO ENTER CHECKOUT DATA """
-    return render(request, 'cart/place_order.html', {})
+    cart = request.session.get('cart')
+    if cart:
+        return render(request, 'cart/place_order.html', {})
+    else:
+        return redirect('shop:product_list')
 
 
 @login_required
@@ -112,6 +115,7 @@ def checkout(request):
             order.placeOrder()
         request.session['cart'] = {}
     return redirect('shop:product_list')
+
 
 @login_required
 def OrderHistory(request):

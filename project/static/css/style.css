@@ -92,8 +92,15 @@ h1, h2, h3, h4, h5, h6 {
 .my-form input,
 .my-form textarea {
     width: 100%;
-    margin-top: 10px;
+    margin-bottom: 10px;
     background: var(--main-ele-color);
+    border: none;
+    border-bottom: 1px solid var(--main-font-color);
+}
+.my-form input:focus,
+.my-form textarea:focus {
+    border-bottom: 1px solid #7C83FD;
+    outline: none;
 }
 input:not(:placeholder-shown),
 textarea:not(:placeholder-shown) {
@@ -151,6 +158,13 @@ input.cancel {
 /* RATING FORM */
 .review-form input {
     width: auto;
+}
+.review-form textarea {
+    border: 1px solid var(--main-font-color);
+}
+.review-form textarea:focus {
+    outline: none;
+    border: 1px solid var(--main-font-color);
 }
 .rating input[type="radio"]:not(:nth-of-type(0)) {
     border: 0;
@@ -235,6 +249,15 @@ label[for]:hover {
     border-radius: 50%;
     position: relative;
     top: 10px;
+}
+/* REGISTRATION FORM */
+.registration-form {
+    max-width: 500px;
+    margin: auto;
+    border: 1px solid var(--main-ele-color);
+    background: var(--main-ele-color);
+    padding: 20px;
+    box-shadow: 0 0 10px #000;
 }
 /*========== END FORM STYLE ==========*/
 
@@ -485,6 +508,7 @@ label[for]:hover {
 }
 .products .product {
     background: var(--main-ele-color);
+    box-shadow: 0 0 10px #000;
 }
 .product-price {
     font-size: 18px;
