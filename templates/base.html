@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawsome/fontawsomefiles/all.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/fontawsome/fontawsomefiles/fontawsome.min.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
     <title>shop</title>
 </head>
 <body>
@@ -82,7 +83,7 @@
             </div>
         </nav>
     </header>
-    <!--========== SETTINGS BOX ==========-->
+    {% comment %} <!--========== SETTINGS BOX ==========-->
     <div class="setting-box">
         <div class="setting-box-content">
             <!--========== SETTINGS BOX ICON ==========-->
@@ -98,7 +99,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     {% block body %}
     {% endblock body %}
     <script src="{% static 'js/main.js' %}"></script>
