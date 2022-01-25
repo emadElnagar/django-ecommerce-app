@@ -49,7 +49,7 @@ class CategoryDelet(DeleteView):
 class ProductList(ListView):
     model = Product
     ordering = '-last_update'
-    paginate_by = 12
+    paginate_by = 9
 
 
 def Search(request):

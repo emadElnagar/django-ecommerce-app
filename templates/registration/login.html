@@ -29,7 +29,7 @@
                         {% if next %}
                             <input type="hidden" name="next" value="{{ next }}">
                         {% else %}
-                            <input type="hidden" name="next" value="{% url 'shop:product_list' %}">
+                            <input type="hidden" name="next" value="/">
                         {% endif %}
                     </form>
                     <p><a href="{% url 'password_reset' %}">Lost password?</a></p>

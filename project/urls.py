@@ -13,6 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls', namespace='shop')),
     path('cart/', include('cart.urls', namespace='cart')),
+    path('', include('pages.urls', namespace='pages')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

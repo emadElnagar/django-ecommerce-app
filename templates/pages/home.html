@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<div class="home">
+    <div class="container-fluid">
+        <div class="cover">
+            <img src="{% static 'img/virender-singh-hE0nmTffKtM-unsplash.jpg' %}" >
+            <div class="cover-text">
+                <h1>mega market</h1>
+                <h2>every thing that's new and now</h2>
+                <a href="{% url 'shop:product_list' %}">shop now</a>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="container-fluid">
+            <div class="categories">
+                {% for category in categories %}
+                    <div class="category">
+                        <a href="{% url 'shop:category_detail' category.slug %}">
+                            <div class="category-heading">
+                                <h2 class="text-center">{{ category }}</h2>
+                            </div>
+                            <div class="category-img">
+                                <img src="{{ category.image.url }}">
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h1 class="text-center main-heading">trending this week</h1>
+            <div class="products">
+                {% for product in products %}
+                    <div class="product">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ product }}</h2>
+                        </div>
+                        <div class="product-main">
+                            <img src="{{ product.image.url }}">
+                            <div class="product-features">
+                                {% if product.discount %}
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
+                                {% endif %}
+                            </div>
+                            <div class="overlay">
+                                <a href="{% url 'shop:product_detail' product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            {{ product.get_price }} $
+                            {% if product.discount %}
+                               <span class="discount"><del><small>{{ product.price }} $</small></del><span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="view-all">
+                <a href="{% url 'shop:product_list' %}">view all products</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock body %}

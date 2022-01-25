@@ -33,10 +33,10 @@
             </div>
         </div>
         <nav class="navbar">
-            <a href="#" class="nav-logo">MegaMarket</a>
+            <a href="/" class="nav-logo">MegaMarket</a>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">home</a>
+                    <a href="/" class="nav-link">home</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown">
@@ -83,25 +83,32 @@
             </div>
         </nav>
     </header>
-    {% comment %} <!--========== SETTINGS BOX ==========-->
-    <div class="setting-box">
-        <div class="setting-box-content">
-            <!--========== SETTINGS BOX ICON ==========-->
-            <div class="setting-box-toggle">
-                <i class="fas fa-cog"></i>
-            </div>
-            <!--========== MODE ==========-->
-            <div class="mode">
-                <h4 class="text-center">mode</h4>
+    <main>
+        {% block body %}
+        {% endblock body %}
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-sec">
                 <ul>
-                    <li data-color="#fff" data-font="#000" data-background="#f4f4f4" class="active fas fa-sun"></li>
-                    <li data-color="#000" data-font="#fff" data-background="#171717" class="fas fa-moon"></li>
+                    <h1>shop</h1>
+                    <li>
+                        <a href="{% url 'shop:product_list' %}">all products</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'shop:category_list' %}">categories</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-sec">
+                <ul>
+                    <h1>links</h1>
+                    <li><a href="/">home</a></li>
+                    <li><a href="{% url 'pages:about_view' %}">about us</a></li>
                 </ul>
             </div>
         </div>
-    </div> {% endcomment %}
-    {% block body %}
-    {% endblock body %}
+    </footer>
     <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
