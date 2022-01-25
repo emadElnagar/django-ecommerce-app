@@ -1,4 +1,3 @@
-import django_heroku
 from pathlib import Path
 import os
 from pathlib import Path
@@ -23,7 +22,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,18 +81,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / "static",
+    '/var/www/static/',
 ]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedMainfestStaticFilesStorage'
-
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [os.path.join(ROOT_PATH, 'static')]
-
-django_heroku.settings(locals())
