@@ -1,6 +1,7 @@
-libs/ 
-.vscode
+libs/
 Include/
 Lib/
 Scripts/
 pyvenv.cfg
+media/*
+__pycache__/
