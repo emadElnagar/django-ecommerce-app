@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="container">
+        <!-- <div class="container">
             <div class="header-up">
                 <div class="header-form">
                     <form class="my-form" action="{% url 'shop:search' %}">
@@ -31,51 +31,54 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
         <nav class="navbar">
-            <a href="/" class="nav-logo">MegaMarket</a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">home</a>
-                </li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="dropbtn" onclick="dropDownShow()">shop
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content" id="myDropdown">
-                            <a href="{% url 'shop:product_list' %}">products</a>
-                            <a href="{% url 'shop:product_create' %}">sell your product</a>
-                            <a href="{% url 'shop:category_list' %}">categories</a>
-                        </div>
-                    </div>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <button class="dropbtn" onclick="dropDownShow()">{{request.user}}
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                            <div class="dropdown-content" id="myDropdown">
-                                <a class="with-icon" href="{% url 'accounts:profile' user.profile.id %}">
-                                    profile <i class="fas fa-id-badge"></i>
-                                </a>
-                                <a class="with-icon" href="{% url 'cart:order_history' %}">
-                                    orders history <i class="fas fa-history"></i>
-                                </a>
-                                <a class="with-icon" href="{% url 'logout' %}">
-                                    logout <i class="fas fa-sign-out-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="/accounts/login" class="nav-link">login</a>/
-                        <a href="{% url 'accounts:signup' %}" class="nav-link">signup</a>
-                    </li>
-                {% endif %}
-            </ul>
+            <a href="/" class="nav-logo">Mega</a>
+            <div class="links-container">
+              <ul class="nav-menu">
+                  <li class="nav-item">
+                      <a href="/" class="nav-link">home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'pages:about_view' %}" class="nav-link">about</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'shop:product_list' %}" class="nav-link">products</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'shop:category_list' %}" class="nav-link">categories</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'shop:product_create' %}" class="nav-link">sell on mega</a>
+                  </li>
+                  <li class="nav-item special-link">
+                      <a href="/accounts/login" class="nav-link">login</a>
+                  </li>
+              </ul>
+            </div>
+            <div class="links-container">
+              <ul class="nav-menu">
+                  <li class="nav-item">
+                      <span class="nav-link btn"><i class="fas fa-search fa-fw"></i></span>
+                  </li>
+                  <li class="nav-item">
+                      <span class="nav-link btn"><i class="fas fa-user fa-fw"></i></span>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'shop:wishlist_view' %}" class="nav-link btn">
+                          <i class="far fa-heart fa-fw"></i>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'cart:cart_details' %}" class="nav-link btn">
+                          <i class="fa fa-shopping-cart fa-fw"></i>
+                          {% if request.session.cart|length > 0 %}
+                              {{ request.session.cart|length }}
+                          {% endif %}
+                      </a>
+                  </li>
+              </ul>
+            </div>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>

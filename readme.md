@@ -1,5 +1,5 @@
 # django ecommerce
-ecommerce web app using django mltiple sellers
+Ecommere app where every user can create his own shop and sell his products.
 ## technologies-used
 * backend
   * django
