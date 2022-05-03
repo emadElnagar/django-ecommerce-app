@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% block body %}
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-            please login with an account that has access.</p>
-        {% else %}
-            <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-    
     <section>
         <div class="container">
+            {% if form.errors %}
+                <h2 class="text-center">Your username and password didn't match. Please try again.</h2>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <h2 class="text-center">Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</h2>
+                {% else %}
+                    <h2 class="text-center">Please login to see this page.</h2>
+                {% endif %}
+            {% endif %}
             {% if user.is_authenticated %}
                 <div>
                     <h2>you are already loged in, do you want to logout?</h2>
