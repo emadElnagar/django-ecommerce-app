@@ -305,6 +305,7 @@ label[for]:hover {
   font-size: 1.3rem;
   font-weight: 400;
   color: #475569;
+  text-transform: capitalize;
 }
 .nav-link:hover{
   color: var(--main-color);
@@ -373,7 +374,7 @@ label[for]:hover {
   align-items: center;
   display: none;
 }
-.active {
+.search-form.active {
   display: flex;
 }
 .search-form .container {
