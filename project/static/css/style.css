@@ -786,23 +786,29 @@ table form .add {
 
 /*========== START FOOTER ==========*/
 footer {
-  padding-top: 50px;
+  background: var(--main-bg-color);
+  padding-top: 40px;
   margin-top: 80px;
-  background: #eee;
-  border-top: 2px solid #00000049;
+  box-shadow: 0 0 10px #aaa;
 }
 footer .container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
-footer .container ul li {
-  margin-bottom: 20px;
+footer .footer-sec {
+  width: calc(100%/4);
 }
-footer .container ul li a {
-  color: #000;
+footer .info {
+  width: calc((100%/4)*2);
+}
+footer li {
+  line-height: 35px;
+}
+footer a {
+  color: var(--main-font-color);
   transition: .3s all ease;
 }
-footer .container ul li a:hover {
+footer a:hover {
   color: var(--main-color);
 }
 /*========== END FOOTER ==========*/

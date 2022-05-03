@@ -92,22 +92,36 @@
     </main>
     <footer>
         <div class="container">
-            <div class="footer-sec">
-                <ul>
-                    <h1>shop</h1>
-                    <li>
-                        <a href="{% url 'shop:product_list' %}">all products</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'shop:category_list' %}">categories</a>
-                    </li>
-                </ul>
+            <div class="footer-sec info">
+                <h1 class="text-center">mega</h1>
+                <p class="text-center">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
             </div>
             <div class="footer-sec">
                 <ul>
                     <h1>links</h1>
                     <li><a href="/">home</a></li>
-                    <li><a href="{% url 'pages:about_view' %}">about us</a></li>
+                    <li><a href="{% url 'pages:about_view' %}">about</a></li>
+                    <li><a href="{% url 'shop:product_list' %}">products</a></li>
+                    <li><a href="{% url 'shop:category_list' %}">categories</a></li>
+                </ul>
+            </div>
+            <div class="footer-sec">
+                <ul>
+                    <h1>follow us</h1>
+                    <li>
+                      <a href="https://www.facebook.com/profile.php?id=100008372922486" target="_blank">facebook</a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/emadElnagar" target="_blank">github</a>
+                    </li>
+                    <li>
+                      <a href="https://www.linkedin.com/in/emad-elnagar-23456022b/" target="_blank">linkedin</a>
+                    </li>
                 </ul>
             </div>
         </div>
