@@ -11,27 +11,6 @@
 </head>
 <body>
     <header class="header">
-        <!-- <div class="container">
-            <div class="header-up">
-                <div class="header-form">
-                    <form class="my-form" action="{% url 'shop:search' %}">
-                        <input type="text" placeholder="search" name="search">
-                        <button><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                <div class="header-cart">
-                    <a href="{% url 'shop:wishlist_view' %}">
-                        <i class="far fa-heart fa-fw"></i>
-                    </a>
-                    <a href="{% url 'cart:cart_details' %}">
-                        <i class="fas fa-shopping-cart fa-fw"></i>
-                        {% if request.session.cart|length > 0 %}
-                            {{ request.session.cart|length }}
-                        {% endif %}
-                    </a>
-                </div>
-            </div>
-        </div> -->
         <nav class="navbar">
             <a href="/" class="nav-logo">Mega</a>
             <div class="links-container">
@@ -59,7 +38,7 @@
             <div class="links-container">
               <ul class="nav-menu">
                   <li class="nav-item">
-                      <span class="nav-link btn"><i class="fas fa-search fa-fw"></i></span>
+                      <span class="nav-link btn" id="search-button"><i class="fas fa-search fa-fw"></i></span>
                   </li>
                   <li class="nav-item">
                       <span class="nav-link btn"><i class="fas fa-user fa-fw"></i></span>
@@ -85,6 +64,18 @@
                 <span class="bar"></span>
             </div>
         </nav>
+        <div class="search-form" id="search-form">
+            <div class="container">
+                <form class="my-form" action="{% url 'shop:search' %}">
+                    <input type="text" placeholder="search" name="search">
+                    <button><i class="fas fa-search"></i></button>
+                    <div class="search-close btn" id="search-close">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
     </header>
     <main>
         {% block body %}

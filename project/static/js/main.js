@@ -17,6 +17,19 @@ function closeMenu() {
     navMenu.classList.remove("active");
 }
 
+// SEARCH FORM
+let searchButton = document.getElementById('search-button');
+let searchForm = document.getElementById('search-form');
+let searchClose = document.getElementById('search-close');
+
+searchButton.onclick = () => {
+  searchForm.classList.add('active');
+}
+
+searchClose.onclick = () => {
+  searchForm.classList.remove('active');
+}
+
 // DROPDOWN
 let dropdownBtn = document.querySelector('.menu-btn');
 let menuContent = document.querySelector('.menu-content');
