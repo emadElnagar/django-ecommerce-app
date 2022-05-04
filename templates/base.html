@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawsome/fontawsomefiles/all.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/fontawsome/fontawsomefiles/fontawsome.min.css' %}">
-    <script src="https://js.stripe.com/v3/"></script>
-    <title>shop</title>
+	  <link rel="stylesheet" href="{% static 'css/fontawsome/fontawsomefiles/fontawsome.min.css' %}">
+    <link rel="icon" href="{% static 'img/304843.png' %}">
+    <title>mega</title>
 </head>
 <body>
     <header class="header">
@@ -30,9 +30,15 @@
                   <li class="nav-item">
                       <a href="{% url 'shop:product_create' %}" class="nav-link">sell on mega</a>
                   </li>
-                  <li class="nav-item special-link">
-                      <a href="/accounts/login" class="nav-link">login</a>
-                  </li>
+                  {% if not user.is_authenticated %}
+                      <li class="nav-item special-link">
+                          <a href="/accounts/login" class="nav-link">login</a>
+                      </li>
+                  {% else %}
+                      <li class="nav-item special-link">
+                          <a href="/accounts/logout" class="nav-link">logout</a>
+                      </li>
+                  {% endif %}
               </ul>
             </div>
             <div class="links-container">
@@ -84,8 +90,8 @@
     <footer>
         <div class="container">
             <div class="footer-sec info">
-                <h1 class="text-center">mega</h1>
-                <p class="text-center">
+                <h1>mega</h1>
+                <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -105,13 +111,19 @@
                 <ul>
                     <h1>follow us</h1>
                     <li>
-                      <a href="https://www.facebook.com/profile.php?id=100008372922486" target="_blank">facebook</a>
+                      <a href="https://www.facebook.com/profile.php?id=100008372922486" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                      </a>
                     </li>
                     <li>
-                      <a href="https://github.com/emadElnagar" target="_blank">github</a>
+                      <a href="https://github.com/emadElnagar" target="_blank">
+                        <i class="fab fa-github"></i>
+                      </a>
                     </li>
                     <li>
-                      <a href="https://www.linkedin.com/in/emad-elnagar-23456022b/" target="_blank">linkedin</a>
+                      <a href="https://www.linkedin.com/in/emad-elnagar-23456022b/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                      </a>
                     </li>
                 </ul>
             </div>
