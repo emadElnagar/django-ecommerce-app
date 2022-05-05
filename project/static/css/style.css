@@ -328,6 +328,31 @@ label[for]:hover {
 .nav-logo-lg {
   display: flex;
 }
+.user-btn {
+  position: relative;
+}
+.user-menu {
+  min-width: 150px;
+  position: absolute;
+  top: 30px;
+  left: -1rem;
+  background: #fff;
+  padding: 0;
+  display: none;
+  border: 1px solid #E2E8F0;
+}
+.user-menu.active {
+  display: block;
+}
+.user-menu li {
+  padding: 10px 20px;
+}
+.user-menu li a {
+  color: #000;
+}
+.user-menu li:hover {
+  background: var(--main-color)
+}
 @media only screen and (max-width: 954px) {
   .navbar {
     justify-content: space-between;
@@ -352,9 +377,6 @@ label[for]:hover {
   }
   .nav-item {
     margin: 1rem 0;
-  }
-  .special-link {
-    display: flex;
   }
   .links-container {
     flex-direction: column;

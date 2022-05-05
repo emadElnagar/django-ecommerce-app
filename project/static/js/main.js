@@ -30,6 +30,14 @@ searchClose.onclick = () => {
   searchForm.classList.remove('active');
 }
 
+// USER MANAGEMENT BUTTON
+const userButton = document.querySelector('.user-btn');
+const userMenu = document.querySelector('.user-menu');
+
+userButton.onclick = () => {
+  userMenu.classList.toggle('active');
+}
+
 // DROPDOWN
 let dropdownBtn = document.querySelector('.menu-btn');
 let menuContent = document.querySelector('.menu-content');

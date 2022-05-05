@@ -36,9 +36,27 @@
                       <li class="nav-item">
                           <span class="nav-link btn" id="search-button"><i class="fas fa-search fa-fw"></i></span>
                       </li>
-                      <li class="nav-item">
-                          <span class="nav-link btn"><i class="fas fa-user fa-fw"></i></span>
-                      </li>
+                      {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="nav-link btn user-btn">
+                              <i class="fas fa-user fa-fw"></i>
+                              <ul class="user-menu">
+                                <li><a href="/accounts/login">login</a></li>
+                                <li><a href="{% url 'accounts:signup' %}">register</a></li>
+                              </ul>
+                            </span>
+                        </li>
+                      {% else %}
+                        <li class="nav-item">
+                            <span class="nav-link btn user-btn">
+                              <i class="fas fa-user fa-fw"></i>
+                              <ul class="user-menu">
+                                <li><a href="{% url 'accounts:profile' request.user.id %}">profile</a></li>
+                                <li><a href="/accounts/logout">logout</a></li>
+                              </ul>
+                            </span>
+                        </li>
+                      {% endif %}
                       <li class="nav-item">
                           <a href="{% url 'shop:wishlist_view' %}" class="nav-link btn">
                               <i class="far fa-heart fa-fw"></i>
@@ -53,23 +71,7 @@
                           </a>
                       </li>
                   </div>
-
-                  <!-- {% if not user.is_authenticated %}
-                      <li class="nav-item special-link">
-                          <a href="/accounts/login" class="nav-link">login</a>
-                      </li>
-                  {% else %}
-                      <li class="nav-item special-link">
-                          <a href="/accounts/logout" class="nav-link">logout</a>
-                      </li>
-                  {% endif %}
               </ul>
-            </div>
-            <div class="links-container">
-              <ul class="nav-menu"> -->
-
-              </ul>
-            <!-- </div> -->
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
