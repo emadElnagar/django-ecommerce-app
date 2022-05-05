@@ -99,7 +99,7 @@ def checkout(request):
         customer = request.user
         cart = request.session.get('cart')
         products = Product.get_products_by_slug(list(cart.keys()))
-        
+
         for product in products:
             order = Order(
                 country = country,

@@ -297,6 +297,7 @@ label[for]:hover {
   justify-content: space-between;
   align-items: center;
   z-index: 9999;
+  width: 100%;
 }
 .nav-item {
   padding: 0 1rem;
@@ -315,36 +316,54 @@ label[for]:hover {
   font-weight: 500;
   color: var(--main-color);
 }
+.nav-logo-view {
+  display: none;
+}
 .links-container {
   display: flex;
 }
 .special-link {
   display: none;
 }
-@media only screen and (max-width: 768px) {
+.nav-logo-lg {
+  display: flex;
+}
+@media only screen and (max-width: 954px) {
   .navbar {
     justify-content: space-between;
   }
   .nav-menu {
     position: fixed;
     left: -120%;
-    top: 8rem;
+    top: 4rem;
     flex-direction: column;
+    justify-content: center;
     background-color: var(--main-ele-color);
     width: 100%;
     border-radius: 10px;
     text-align: center;
     transition: 0.3s;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    height: 600px;
+    overflow: scroll;
   }
   .nav-menu.active {
     left: 0;
   }
   .nav-item {
-    margin: 2.5rem 0;
+    margin: 1rem 0;
   }
   .special-link {
     display: flex;
+  }
+  .links-container {
+    flex-direction: column;
+  }
+  .nav-logo-view {
+    display: flex;
+  }
+  .nav-logo-lg {
+    display: none;
   }
   .hamburger {
     display: block;

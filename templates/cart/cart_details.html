@@ -63,10 +63,6 @@
                 </tfooter>
             </table>
             <div class="checkout-card">
-                <!-- <div class="checkout">
-                    <h1> {{products|quantity_total:request.session.cart}} items in stock</h1>
-                    <a class="checkout-button" href="{% url 'cart:place_order' %}">checkout</a>
-                </div> -->
                 <a class="checkout-button" href="{% url 'cart:place_order' %}">checkout</a>
             </div>
             {% else %}
