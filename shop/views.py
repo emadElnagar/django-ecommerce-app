@@ -20,12 +20,12 @@ def CategoryDetail(request, slug):
     category = Category.objects.get(slug=slug)
     product = Product.objects.filter(category=category)
     return render(request, 'shop/category_detail.html', {'category':category, 'products':product})
-    
+
 
 class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name', 'image']
-    
+
     def get_success_url(self):
         return reverse('shop:category_list')
 
@@ -33,7 +33,7 @@ class CategoryCreate(LoginRequiredMixin, CreateView):
 class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['name', 'image']
-    
+
     def get_success_url(self):
         return reverse('shop:category_list')
 
@@ -83,9 +83,9 @@ def ProductDetail(request, slug):
             return HttpResponseRedirect(product.get_absolute_url())
     else:
         review_form = ReviewForm()
-    
+
     context = {
-        'product':product, 
+        'product':product,
         'related_products':related_products,
         'other_products':other_products,
         'reviews':reviews,
@@ -119,7 +119,7 @@ class ProductUpdate(LoginRequiredMixin, UpdateView):
 
 class ProductDelete(LoginRequiredMixin, DeleteView):
     model = Product
-    
+
     def get_success_url(self):
         return reverse('shop:product_list')
 

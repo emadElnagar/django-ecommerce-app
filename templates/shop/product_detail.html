@@ -55,7 +55,7 @@
                                         fas fa-star checked
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if reviews_avg >= 2 %}
                                         fas fa-star
@@ -65,7 +65,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if reviews_avg >= 3 %}
                                         fas fa-star
@@ -75,7 +75,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if reviews_avg >= 4 %}
                                         fas fa-star
@@ -85,7 +85,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if reviews_avg >= 5 %}
                                         fas fa-star
@@ -148,7 +148,7 @@
             </div>
         </div>
     </section>
-    
+
     <section>
         <div class="container">
             <div class="reviews">
@@ -186,7 +186,7 @@
                                         fas fa-star checked
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if review.rate >= 2 %}
                                         fas fa-star
@@ -194,7 +194,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if review.rate >= 3 %}
                                         fas fa-star
@@ -202,7 +202,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if review.rate >= 4 %}
                                         fas fa-star
@@ -210,7 +210,7 @@
                                         far fa-star
                                     {% endif %}">
                                 </i>
-                                
+
                                 <i class="
                                     {% if review.rate == 5 %}
                                         fas fa-star
@@ -236,7 +236,7 @@
                         <textarea name="comment" cols="40" rows="10" required id="id_comment"></textarea>
                         <div class="rating">
                             <label for="id_comment">Rate :</label>
-                            <input name="rate" required id="demo-1" type="radio" value="1"> 
+                            <input name="rate" required id="demo-1" type="radio" value="1">
                             <label for="demo-1">1 star</label>
                             <input name="rate" required id="demo-2" type="radio" value="2">
                             <label for="demo-2">2 stars</label>
@@ -251,7 +251,7 @@
                                 <label for="demo-2" aria-label="2 stars" title="Normal"></label>
                                 <label for="demo-3" aria-label="3 stars" title="Good"></label>
                                 <label for="demo-4" aria-label="4 stars" title="Very Good"></label>
-                                <label for="demo-5" aria-label="5 stars" title="Excelent"></label>   
+                                <label for="demo-5" aria-label="5 stars" title="Excelent"></label>
                             </div>
                         </div>
                         {% csrf_token %}
