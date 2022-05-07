@@ -15,3 +15,6 @@ def home(request):
 
 def about(request):
     return render(request, 'pages/about.html', {})
+
+def error_404_view(request, exception):
+    return render(request, 'pages/not_found.html')
