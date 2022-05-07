@@ -875,6 +875,31 @@ table .delete:hover {
 /*========== END HOME ==========*/
 
 
+/*========== START 404 PAGE ==========*/
+.not-found .link-center {
+  display: flex;
+  justify-content: center;
+}
+.not-found h1 {
+  font-size: 72px
+}
+.not-found p {
+  font-size: 32px
+}
+.not-found .link-center a {
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  background: var(--main-ele-color);
+  padding: 15px 30px;
+  transition: .3s all ease;
+}
+.not-found .link-center a:hover {
+  color: var(--main-ele-color);
+  background: var(--main-color);
+}
+/*========== END 404 PAGE ==========*/
+
+
 /*========== START FOOTER ==========*/
 footer {
   padding-top: 40px;
