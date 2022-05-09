@@ -96,6 +96,15 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /*========== START FORM STYLE ==========*/
+form.md {
+  max-width: 500px;
+  box-shadow: 0 0 5px #aaa;
+  padding: 25px 35px;
+}
+.form-center {
+  display: flex;
+  justify-content: center;
+}
 .my-form input,
 .my-form textarea {
   width: 100%;
@@ -103,6 +112,9 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--main-ele-color);
   border: none;
   border-bottom: 1px solid var(--main-font-color);
+}
+.my-form input {
+  padding: 5px;
 }
 .my-form input:focus,
 .my-form textarea:focus {
