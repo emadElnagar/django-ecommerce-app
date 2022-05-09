@@ -358,6 +358,7 @@ label[for]:hover {
 }
 .user-menu li {
   padding: 10px 20px;
+  font-size: 1rem
 }
 .user-menu li a {
   color: #000;
