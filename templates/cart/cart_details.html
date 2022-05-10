@@ -10,6 +10,7 @@
                     <th>product</th>
                     <th>image</th>
                     <th>price</th>
+                    <th>discount</th>
                     <th>quantity</th>
                     <th>total price</th>
                     <th>delete</th>
@@ -21,6 +22,13 @@
                         </td>
                         <td class="img-row"><img src="{{product.image.url}}"></td>
                         <td>{{product.price}} $</td>
+                        <td>
+                            {% if product.discount %}
+                                {{ product.discount }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
                         <td>
                             <!-- QUANTITY MINUS -->
                             <form class="quantity-form" action="{% url 'cart:quantity_minus' product.slug %}" method="POST">
@@ -50,7 +58,7 @@
                     </tr>
                 {% endfor %}
                 <tfooter>
-                    <th class="total-price" colspan="4">total price</th>
+                    <th class="total-price" colspan="5">total price</th>
                     <th>{{products|total_cart_price:request.session.cart}} $</th>
                     <td>
                         <form title="Remove All" action="{% url 'cart:clear_cart' %}" method="POST">

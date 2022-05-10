@@ -800,15 +800,15 @@ table .delete:hover {
 /*========== START CHECKOUT ==========*/
 .checkout-card {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   padding-top: 50px;
 }
 .checkout-card a {
   color: var(--main-font-color);
   border: 1px solid currentColor;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-transform: capitalize;
-  padding: 15px 35px;
+  padding: 10px 25px;
   transition: .3s all ease;
 }
 /*========== END CHECKOUT ==========*/
