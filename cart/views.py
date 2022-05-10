@@ -101,6 +101,10 @@ def checkout(request):
         products = Product.get_products_by_slug(list(cart.keys()))
 
         for product in products:
+            if product.discount != None:
+                discount = product.discount
+            else:
+                discount = 0
             order = Order(
                 country = country,
                 city = city,
@@ -108,7 +112,7 @@ def checkout(request):
                 phone = phone,
                 phoneTwo = phoneTwo,
                 customer = customer,
-                price = product.price,
+                price = product.price - discount,
                 product = product,
                 quantity = cart.get(str(product.slug))
             )
