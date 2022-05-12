@@ -6,6 +6,7 @@
                 <h1 class="text-center">sell your product</h1>
                 <form method="POST" enctype="multipart/form-data" class="my-form">
                     {% csrf_token %}
+                    {{form.media}}
                     {{form.as_ul}}
                     <button type="submit">post</button>
                     <input type=button value="cancel" class="cancel" onClick="javascript:history.go(-1);">

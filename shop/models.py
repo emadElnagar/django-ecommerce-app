@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.dispatch import receiver
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 import os
 
 
@@ -16,11 +17,11 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category,self).save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.name
 
@@ -49,7 +50,7 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = RichTextField()
     image = models.ImageField(upload_to='products/')
     price = models.FloatField()
     discount = models.FloatField(null=True, blank=True)
@@ -63,24 +64,24 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     wished = models.ManyToManyField(User, related_name='favourite')
     slug = models.SlugField(unique=True)
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product,self).save(*args, **kwargs)
-    
+
     def get_price(self):
         if self.discount != None:
             return self.price - self.discount
         else:
             return self.price
-    
+
     def get_discount_percent(self):
         discount_percent = round((self.discount/self.price) * 100)
         return f"{discount_percent}% off"
-    
+
     def get_absolute_url(self):
         return reverse('shop:product_detail', kwargs={'slug':self.slug})
-    
+
     @staticmethod
     def get_products_by_slug(slugs):
         return Product.objects.filter(slug__in = slugs)

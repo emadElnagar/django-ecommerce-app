@@ -580,7 +580,10 @@ label[for]:hover {
   font-size: 1.2rem;
 }
 .product-details .product-info li {
-  margin-bottom: 25px;
+  margin-bottom: 5px;
+}
+.product-details .product-info .description li {
+  list-style-type: disc;
 }
 .discount {
   color: #aaa;

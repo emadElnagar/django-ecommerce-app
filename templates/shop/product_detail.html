@@ -112,7 +112,7 @@
                             <li>in stock</li>
                         {% endif %}
 
-                        <li>{{ product.description }}</li>
+                        <li class="description">{{ product.description|safe }}</li>
                         <li>By : <a href="{% url 'accounts:profile' product.owner.profile.id %}" class="shop-name">{{ product.owner.profile.shop }}</a></li>
                     </ul>
                     <div class="product-act">
