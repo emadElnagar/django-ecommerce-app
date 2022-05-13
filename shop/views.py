@@ -50,6 +50,10 @@ class ProductList(ListView):
     model = Product
     ordering = '-last_update'
     paginate_by = 9
+    def get_context_data(self, **kwargs):
+        context = super(ProductList, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 def Search(request):

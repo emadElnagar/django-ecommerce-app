@@ -511,6 +511,50 @@ label[for]:hover {
 
 
 /*========== START PRODUCT LIST ==========*/
+.product-list-container {
+  display: flex;
+}
+.product-list-side {
+  width: 20%;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--main-font-color);
+}
+.product-list-side div {
+  width: 100;
+  margin-bottom: 20px
+}
+.product-list-side h2 {
+  color: var(--main-color);
+  position: relative;
+}
+.product-list-side h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  background: var(--main-color);
+  height: 2px;
+  width: 50%;
+}
+.product-list-side li {
+  margin-bottom: 10px;
+}
+.product-list-side li a {
+  color: var(--main-font-color);
+  transition: .3s all ease;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+.product-list-side li a:hover {
+  color: var(--main-color)
+}
+.product-list-main {
+  width: 80%
+}
 .products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -976,6 +1020,15 @@ footer i {
   }
   .home .categories .category {
     width: calc(100% / 2);
+  }
+  .product-list-container {
+    flex-wrap: wrap;
+  }
+  .product-list-side {
+    width: 100%;
+  }
+  .product-list-main {
+    width: 100%
   }
 }
 /*========== SMALL SCREEN ==========*/
