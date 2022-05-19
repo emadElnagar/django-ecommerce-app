@@ -96,6 +96,9 @@ def checkout(request):
         address = request.POST.get('address')
         phone = request.POST.get('phone')
         phoneTwo = request.POST.get('phoneTwo')
+        card_number = request.POST.get('cardNumber')
+        expire = request.POST.get('expire')
+        security_code = request.POST.get('securityCode')
         customer = request.user
         cart = request.session.get('cart')
         products = Product.get_products_by_slug(list(cart.keys()))
@@ -111,6 +114,9 @@ def checkout(request):
                 address = address,
                 phone = phone,
                 phoneTwo = phoneTwo,
+                card_number = card_number,
+                expire = expire,
+                security_code = security_code,
                 customer = customer,
                 price = product.price - discount,
                 product = product,

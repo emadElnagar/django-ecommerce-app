@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from shop.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
+from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeField
 
 
 class Order(models.Model):
@@ -17,6 +18,9 @@ class Order(models.Model):
     address = models.CharField(max_length=100)
     phone = PhoneNumberField(null=False, blank=False)
     phoneTwo = PhoneNumberField(null=True, blank=True)
+    card_number = CardNumberField(null=True, blank=True)
+    expire = CardExpiryField(null=True, blank=True)
+    security_code = SecurityCodeField(null=True, blank=True)
 
     def __str__(self):
         return f"order {self.pk}"
