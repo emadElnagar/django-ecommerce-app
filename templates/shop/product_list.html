@@ -15,36 +15,36 @@
               <h1 class="text-center main-heading">products</h1>
               <div class="products">
                   {% for product in product_list %}
-                      <a href="{% url 'shop:product_detail' product.slug %}" class="product">
-                          <div class="product-main">
-                              <img src="{{ product.image.url }}" loading="lazy">
-                              <div class="product-features">
-                                  {% if product.discount %}
-                                      <span class="text-center sale">sale !</span>
-                                  {% endif %}
-                                  {% if product.is_BestSeller == True %}
-                                      <span class="text-center bestseller">bestseller</span>
-                                  {% endif %}
-                                  {% if product.is_featured == True %}
-                                      <span class="text-center featured">featured</span>
-                                  {% endif %}
-                                  {% if product.is_valid == False %}
-                                      <span class="text-center soldout">sold out</span>
-                                  {% endif %}
-                              </div>
-                          </div>
-                          <div class="product-info">
-                            <div class="product-heading">
-                                <h2 class="text-center">{{ product }}</h2>
-                            </div>
-                            <div class="product-price">
-                                {{ product.get_price }} $
+                    <a href="{% url 'shop:product_detail' product.slug %}" class="product">
+                        <div class="product-main">
+                            <img src="{{ product.image.url }}" loading="lazy">
+                            <div class="product-features">
                                 {% if product.discount %}
-                                   <span class="discount"><del>{{ product.price }} $</del><span>
+                                    <span class="text-center sale">sale !</span>
+                                {% endif %}
+                                {% if product.is_BestSeller == True %}
+                                    <span class="text-center bestseller">bestseller</span>
+                                {% endif %}
+                                {% if product.is_featured == True %}
+                                    <span class="text-center featured">featured</span>
+                                {% endif %}
+                                {% if product.is_valid == False %}
+                                    <span class="text-center soldout">sold out</span>
                                 {% endif %}
                             </div>
-                          </div>
-                      </a>
+                        </div>
+                        <div class="product-info">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ product }}</h2>
+                        </div>
+                        <div class="product-price">
+                            {{ product.get_price }} $
+                            {% if product.discount %}
+                                <span class="discount"><del>{{ product.price }} $</del><span>
+                            {% endif %}
+                        </div>
+                        </div>
+                    </a>
                   {% endfor %}
               </div>
 

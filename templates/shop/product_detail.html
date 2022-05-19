@@ -273,12 +273,9 @@
         <div class="container">
             <div class="products">
                 {% for related_product in related_products %}
-                    <div class="product">
-                        <div class="product-heading">
-                            <h2 class="text-center">{{ related_product }}</h2>
-                        </div>
+                    <a href="{% url 'shop:product_detail' related_product.slug %}" class="product">
                         <div class="product-main">
-                            <img src="{{ related_product.image.url }}">
+                            <img src="{{ related_product.image.url }}" loading="lazy">
                             <div class="product-features">
                                 {% if related_product.discount %}
                                     <span class="text-center sale">sale !</span>
@@ -293,17 +290,19 @@
                                     <span class="text-center soldout">sold out</span>
                                 {% endif %}
                             </div>
-                            <div class="overlay">
-                                <a href="{% url 'shop:product_detail' related_product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
-                            </div>
+                        </div>
+                        <div class="product-info">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ related_product }}</h2>
                         </div>
                         <div class="product-price">
                             {{ related_product.get_price }} $
                             {% if related_product.discount %}
-                            <span class="discount"><del><small>{{ related_product.price }} $</small></del><span>
+                                <span class="discount"><del>{{ related_product.price }} $</del><span>
                             {% endif %}
                         </div>
-                    </div>
+                        </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -320,12 +319,9 @@
             {% endif %}
             <div class="products">
                 {% for other_product in other_products %}
-                    <div class="product">
-                        <div class="product-heading">
-                            <h2 class="text-center">{{ other_product }}</h2>
-                        </div>
+                    <a href="{% url 'shop:product_detail' product.slug %}" class="product">
                         <div class="product-main">
-                            <img src="{{ other_product.image.url }}">
+                            <img src="{{ other_product.image.url }}" loading="lazy">
                             <div class="product-features">
                                 {% if other_product.discount %}
                                     <span class="text-center sale">sale !</span>
@@ -340,17 +336,19 @@
                                     <span class="text-center soldout">sold out</span>
                                 {% endif %}
                             </div>
-                            <div class="overlay">
-                                <a href="{% url 'shop:product_detail' other_product.slug %}">view details <i class="fas fa-info-circle fa-fw"></i></a>
-                            </div>
+                        </div>
+                        <div class="product-info">
+                        <div class="product-heading">
+                            <h2 class="text-center">{{ other_product }}</h2>
                         </div>
                         <div class="product-price">
                             {{ other_product.get_price }} $
                             {% if other_product.discount %}
-                                <span class="discount"><del><small>{{ other_product.price }} $</small></del><span>
+                                <span class="discount"><del>{{ other_product.price }} $</del><span>
                             {% endif %}
                         </div>
-                    </div>
+                        </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
