@@ -21,7 +21,7 @@
                             <td>{{order.price}} $</td>
                             <td>{{order.quantity}}</td>
                             <td>{{order.quantity|order_total_price:order.price}}</td>
-                            <td> {{order.status|default:'pending'}} </td>
+                            <td> {{order.status}} </td>
                         </tr>
                     {% endfor %}
                 </table>
