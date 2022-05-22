@@ -3,14 +3,18 @@
     <section>
         <div class="container">
             {% if user.profile.shop %}
-                <h1 class="text-center">sell your product</h1>
-                <form method="POST" enctype="multipart/form-data" class="my-form">
-                    {% csrf_token %}
-                    {{form.media}}
-                    {{form.as_ul}}
-                    <button type="submit">post</button>
-                    <input type=button value="cancel" class="cancel" onClick="javascript:history.go(-1);">
-                </form>
+                {% if user.profile.is_shop_verified == False %}
+                    <h1 class="text-center">your shop is waiting to be verified by admins</h1>
+                {% else %}
+                    <h1 class="text-center">sell your product</h1>
+                    <form method="POST" enctype="multipart/form-data" class="my-form">
+                        {% csrf_token %}
+                        {{form.media}}
+                        {{form.as_ul}}
+                        <button type="submit">post</button>
+                        <input type=button value="cancel" class="cancel" onClick="javascript:history.go(-1);">
+                    </form>
+                {% endif %}
             {% else %}
                 <h1 class="text-center">create your shop first</h1>
                 <div class="center">

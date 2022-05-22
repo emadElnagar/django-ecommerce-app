@@ -9,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profile/', null=True, blank=True)
     shop = models.CharField(max_length=255, null=True, blank=True)
+    is_shop_verified = models.BooleanField(default=False)
     
     def __str__(self):
         return str(self.user)
