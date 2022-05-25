@@ -738,6 +738,17 @@ label[for]:hover {
 .shop-name {
   color: var(--main-color);
 }
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+.profile-image {
+  max-width: 500px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 0 3px var(--main-font-color);
+}
 /*========== END PROFILE ==========*/
 
 
