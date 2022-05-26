@@ -22,4 +22,15 @@
             {% endif %}
         </div>
     </section>
+    {% if request.user == profile.user %}
+        <section>
+            <div class="container">
+                <h2 class="text-center">user settings</h2>
+                <div class="btn-container">
+                    <a class="profile-btn" href="{% url 'accounts:update_profile' profile.pk %}">change my info</a>
+                    <a class="profile-btn delete" href="{% url 'accounts:delete_user' profile.pk %}">delete account</a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
 {% endblock body %}

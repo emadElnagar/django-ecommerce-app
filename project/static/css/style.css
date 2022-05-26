@@ -749,6 +749,20 @@ label[for]:hover {
   border-radius: 50%;
   box-shadow: 0 0 3px var(--main-font-color);
 }
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+.profile-btn {
+  color: #fff;
+  background: var(--main-color);
+  padding: 10px 25px;
+  text-transform: capitalize;
+  margin-inline: 20px;
+}
+.profile-btn.delete {
+  background: #FF0266;
+}
 /*========== END PROFILE ==========*/
 
 

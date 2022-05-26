@@ -24,10 +24,10 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
         return reverse_lazy('accounts:profile', kwargs={'pk': self.object.pk})
 
 
-def delete_user(request, username):
+def delete_user(request, pk):
     context = {}
     try:
-        u = User.objects.get(username=username)
+        u = User.objects.get(pk=pk)
         u.delete()
         context['msg'] = 'The user is deleted.'
     except User.DoesNotExist:
