@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'cart',
     'pages',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
