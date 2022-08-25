@@ -6,4 +6,5 @@ app_name ='shop'
 urlpatterns = [
     # CATEGORY API
     path('category/all', views.GetAllCategories),
+    path('category/new', views.NewCategory),
 ]
