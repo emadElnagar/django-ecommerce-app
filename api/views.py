@@ -23,7 +23,7 @@ def NewCategory(request):
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # SINGLE CATEGORY VIEW
-@api_view(['PUT'])
+@api_view(['PUT', 'DELETE'])
 def SingleCategory(request, slug):
     category = Category.objects.get(slug = slug)
     # update category
@@ -32,4 +32,9 @@ def SingleCategory(request, slug):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        if category:
+            category.delete()
+            return Response({"status":"ok"}, status = status.HTTP_200_OK)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
