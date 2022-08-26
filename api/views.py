@@ -23,11 +23,16 @@ def NewCategory(request):
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # SINGLE CATEGORY VIEW
-@api_view(['PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def SingleCategory(request, slug):
     category = Category.objects.get(slug = slug)
+    # get all category products
+    if request.method == 'GET':
+        products = Product.objects.filter(category = category)
+        serializer = ProductSerializer(products, many = True)
+        return Response(serializer.data)
     # update category
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
         serializer = CategorySerializer(category, data = request.data)
         if serializer.is_valid():
             serializer.save()
