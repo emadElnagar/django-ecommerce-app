@@ -53,11 +53,20 @@ def ProductsList(request):
     return Response(serializer.data)
 
 # SINGLE PRODUCTS VIEW
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def SingleProduct(request, slug):
     product = Product.objects.get(slug = slug)
-    serializer = ProductSerializer(product)
-    return Response(serializer.data)
+    # Get Single Product
+    if request.method == 'GET':
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
+    # Update Single Product
+    elif request.method == 'PUT':
+        serializer = ProductSerializer(product, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # CREATE NEW PRODUCT
 @api_view(['POST'])

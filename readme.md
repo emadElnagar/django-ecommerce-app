@@ -4,6 +4,7 @@ Ecommere app where every user can create his own shop and sell his products.
 * backend
   * django
   * mysql
+  * django rest framework
 * frontend
   * HTML5
   * Css3
