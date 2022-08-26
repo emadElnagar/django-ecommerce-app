@@ -53,7 +53,7 @@ def ProductsList(request):
     return Response(serializer.data)
 
 # SINGLE PRODUCTS VIEW
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def SingleProduct(request, slug):
     product = Product.objects.get(slug = slug)
     # Get Single Product
@@ -66,6 +66,12 @@ def SingleProduct(request, slug):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    # Delete Product
+    elif request.method == 'DELETE':
+        if product:
+            product.delete()
+            return Response({"status":"ok"}, status = status.HTTP_200_OK)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # CREATE NEW PRODUCT
