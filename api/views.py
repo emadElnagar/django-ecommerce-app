@@ -51,3 +51,10 @@ def ProductsList(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many = True)
     return Response(serializer.data)
+
+# SINGLE PRODUCTS VIEW
+@api_view(['GET'])
+def SingleProduct(request, slug):
+    product = Product.objects.get(slug = slug)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
