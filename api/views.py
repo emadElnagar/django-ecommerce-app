@@ -3,8 +3,8 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import CategorySerializer
-from shop.models import Category
+from .serializers import CategorySerializer, ProductSerializer
+from shop.models import Category, Product
 
 # GET ALL CATEGORIES
 @api_view(['GET'])
@@ -33,8 +33,16 @@ def SingleCategory(request, slug):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    # delete category
     elif request.method == 'DELETE':
         if category:
             category.delete()
             return Response({"status":"ok"}, status = status.HTTP_200_OK)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+# PRODUCTS LIST VIEW
+@api_view(['GET'])
+def ProductsList(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many = True)
+    return Response(serializer.data)

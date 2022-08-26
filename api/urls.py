@@ -8,4 +8,5 @@ urlpatterns = [
     path('category/all', views.GetAllCategories),
     path('category/new', views.NewCategory),
     path('category/<str:slug>', views.SingleCategory),
+    path('products/all', views.ProductsList),
 ]
