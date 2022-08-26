@@ -58,3 +58,13 @@ def SingleProduct(request, slug):
     product = Product.objects.get(slug = slug)
     serializer = ProductSerializer(product)
     return Response(serializer.data)
+
+# CREATE NEW PRODUCT
+@api_view(['POST'])
+def NewProduct(request):
+    if request.method == 'POST':
+        serializer = ProductSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)

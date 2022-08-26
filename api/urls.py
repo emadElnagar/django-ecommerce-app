@@ -9,4 +9,6 @@ urlpatterns = [
     path('category/new', views.NewCategory),
     path('category/<str:slug>', views.SingleCategory),
     path('products/all', views.ProductsList),
+    path('products/new', views.NewProduct),
+    path('products/<str:slug>', views.SingleProduct),
 ]
