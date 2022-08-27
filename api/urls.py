@@ -12,6 +12,8 @@ urlpatterns = [
     path('products/all', views.ProductsList),
     path('products/new', views.NewProduct),
     path('products/<str:slug>', views.SingleProduct),
+    # REVIEWS API
+    path('reviews/<str:slug>', views.ProductReviews),
     # SEARCH API
     path('Search', views.Search),
 ]

@@ -3,8 +3,8 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import CategorySerializer, ProductSerializer
-from shop.models import Category, Product
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer
+from shop.models import Category, Product, Review
 
 # GET ALL CATEGORIES
 @api_view(['GET'])
@@ -94,3 +94,13 @@ def Search(request):
             products = Product.objects.filter(name__icontains=name)
             serializer = ProductSerializer(products, many = True)
             return Response(serializer.data)
+
+# PRODUCT REVIEWS API
+@api_view(['GET'])
+def ProductReviews(request, slug):
+    product = Product.objects.get(slug = slug)
+    # Get Product Reviews
+    if request.method == 'GET':
+        reviews = Review.objects.filter(product = product)
+        serializer = ReviewSerializer(reviews, many = True)
+        return Response(serializer.data)
