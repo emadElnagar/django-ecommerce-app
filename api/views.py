@@ -83,3 +83,14 @@ def NewProduct(request):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+# SEARCH API
+@api_view(['GET'])
+def Search(request):
+    product = None
+    if 'search' in request.GET:
+        name = request.GET['search']
+        if name:
+            products = Product.objects.filter(name__icontains=name)
+            serializer = ProductSerializer(products, many = True)
+            return Response(serializer.data)
