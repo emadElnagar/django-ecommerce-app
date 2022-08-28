@@ -122,3 +122,13 @@ def UpdateReview(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+# DELETE REVEIW
+@api_view(['DELETE'])
+def DeleteReview(request, pk):
+    review = Review.objects.filter(id = pk)
+    if request.method == 'DELETE':
+        if review:
+            review.delete()
+            return Response({"status":"ok"}, status = status.HTTP_200_OK)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)

@@ -14,6 +14,7 @@ urlpatterns = [
     path('products/<str:slug>', views.SingleProduct),
     # REVIEWS API
     path('reviews/update/<int:pk>', views.UpdateReview),
+    path('reviews/delete/<int:pk>', views.DeleteReview),
     path('reviews/<str:slug>', views.ProductReviews),
     # SEARCH API
     path('Search', views.Search),
