@@ -111,3 +111,14 @@ def ProductReviews(request, slug):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+# UPDATE REVIEW
+@api_view(['PUT'])
+def UpdateReview(request, pk):
+    review = Review.objects.filter(id = pk)
+    if request.method == 'PUT':
+        serializer = ReviewSerializer(review, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
