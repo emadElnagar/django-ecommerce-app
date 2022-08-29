@@ -84,6 +84,14 @@ def NewProduct(request):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+# RELATED PRODUCTS
+@api_view(['GET'])
+def RelatedProducts(request, slug):
+    product = Product.objects.get(slug = slug)
+    related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
+    serializer = ProductSerializer(related_products, many = True)
+    return Response(serializer.data)
+
 # SEARCH API
 @api_view(['GET'])
 def Search(request):
