@@ -86,11 +86,14 @@ def NewProduct(request):
 
 # RELATED PRODUCTS
 @api_view(['GET'])
-def RelatedProducts(request, slug):
+def ProductAnalysis(request, slug):
     product = Product.objects.get(slug = slug)
     related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
-    serializer = ProductSerializer(related_products, many = True)
-    return Response(serializer.data)
+    # Other products is that products by the same seller
+    other_products = Product.objects.filter(owner=product.owner)
+    relatedProductsSerializer = ProductSerializer(related_products, many = True)
+    otherProductsSerializer = ProductSerializer(other_products, many = True)
+    return Response({'relatedProducts': relatedProductsSerializer.data, 'otherProducts': otherProductsSerializer.data})
 
 # SEARCH API
 @api_view(['GET'])
