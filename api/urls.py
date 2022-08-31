@@ -11,12 +11,10 @@ urlpatterns = [
     # PRODUCTS API
     path('products/all', views.ProductsList),
     path('products/new', views.NewProduct),
-    path('products/analysis/<str:slug>', views.ProductAnalysis),
     path('products/<str:slug>', views.SingleProduct),
     # REVIEWS API
     path('reviews/update/<int:pk>', views.UpdateReview),
     path('reviews/delete/<int:pk>', views.DeleteReview),
-    path('reviews/<str:slug>', views.ProductReviews),
     # SEARCH API
     path('Search', views.Search),
 ]

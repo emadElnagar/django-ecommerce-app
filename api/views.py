@@ -53,13 +53,25 @@ def ProductsList(request):
     return Response(serializer.data)
 
 # SINGLE PRODUCTS VIEW
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def SingleProduct(request, slug):
     product = Product.objects.get(slug = slug)
     # Get Single Product
     if request.method == 'GET':
-        serializer = ProductSerializer(product)
-        return Response(serializer.data)
+        related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
+        other_products = Product.objects.filter(owner=product.owner)
+        reviews = Review.objects.filter(product = product)
+        # Serializers
+        productSerializer = ProductSerializer(product)
+        relatedProductsSerializer = ProductSerializer(related_products, many = True)
+        otherProductsSerializer = ProductSerializer(other_products, many = True)
+        reviewSerializer = ReviewSerializer(reviews, many = True)
+        return Response({
+            'product': productSerializer.data,
+            'relatedProducts': relatedProductsSerializer.data,
+            'otherProducts': otherProductsSerializer.data,
+            'reviews': reviewSerializer.data
+        })
     # Update Single Product
     elif request.method == 'PUT':
         serializer = ProductSerializer(product, data = request.data)
@@ -73,6 +85,13 @@ def SingleProduct(request, slug):
             product.delete()
             return Response({"status":"ok"}, status = status.HTTP_200_OK)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    # Create Review
+    elif request.method == 'POST':
+        serializer = ReviewSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # CREATE NEW PRODUCT
 @api_view(['POST'])
@@ -84,17 +103,6 @@ def NewProduct(request):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-# RELATED PRODUCTS
-@api_view(['GET'])
-def ProductAnalysis(request, slug):
-    product = Product.objects.get(slug = slug)
-    related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
-    # Other products is that products by the same seller
-    other_products = Product.objects.filter(owner=product.owner)
-    relatedProductsSerializer = ProductSerializer(related_products, many = True)
-    otherProductsSerializer = ProductSerializer(other_products, many = True)
-    return Response({'relatedProducts': relatedProductsSerializer.data, 'otherProducts': otherProductsSerializer.data})
-
 # SEARCH API
 @api_view(['GET'])
 def Search(request):
@@ -105,23 +113,6 @@ def Search(request):
             products = Product.objects.filter(name__icontains=name)
             serializer = ProductSerializer(products, many = True)
             return Response(serializer.data)
-
-# PRODUCT REVIEWS API
-@api_view(['GET', 'POST'])
-def ProductReviews(request, slug):
-    product = Product.objects.get(slug = slug)
-    # Get Product Reviews
-    if request.method == 'GET':
-        reviews = Review.objects.filter(product = product)
-        serializer = ReviewSerializer(reviews, many = True)
-        return Response(serializer.data)
-    # Create A New Review
-    elif request.method == 'POST':
-        serializer = ReviewSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # UPDATE REVIEW
 @api_view(['PUT'])
