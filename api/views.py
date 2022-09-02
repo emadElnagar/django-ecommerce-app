@@ -25,7 +25,10 @@ def NewCategory(request):
 # SINGLE CATEGORY VIEW
 @api_view(['GET', 'PUT', 'DELETE'])
 def SingleCategory(request, slug):
-    category = Category.objects.get(slug = slug)
+    try:
+        category = Category.objects.get(slug = slug)
+    except Category.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
     # get all category products
     if request.method == 'GET':
         products = Product.objects.filter(category = category)
@@ -55,11 +58,14 @@ def ProductsList(request):
 # SINGLE PRODUCTS VIEW
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def SingleProduct(request, slug):
-    product = Product.objects.get(slug = slug)
+    try:
+        product = Product.objects.get(slug = slug)
+    except Product.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
     # Get Single Product
     if request.method == 'GET':
         related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
-        other_products = Product.objects.filter(owner=product.owner)
+        other_products = Product.objects.filter(owner=product.owner).order_by('-last_update').exclude(id=product.id)[:3]
         reviews = Review.objects.filter(product = product)
         # Serializers
         productSerializer = ProductSerializer(product)
@@ -117,7 +123,10 @@ def Search(request):
 # UPDATE REVIEW
 @api_view(['PUT'])
 def UpdateReview(request, pk):
-    review = Review.objects.filter(id = pk)
+    try:
+        review = Review.objects.filter(id = pk)
+    except Review.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
     if request.method == 'PUT':
         serializer = ReviewSerializer(review, data = request.data)
         if serializer.is_valid():
@@ -128,7 +137,10 @@ def UpdateReview(request, pk):
 # DELETE REVEIW
 @api_view(['DELETE'])
 def DeleteReview(request, pk):
-    review = Review.objects.filter(id = pk)
+    try:
+        review = Review.objects.filter(id = pk)
+    except Review.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
     if request.method == 'DELETE':
         if review:
             review.delete()
