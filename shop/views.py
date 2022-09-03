@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from .models import Category, Product, Review
@@ -17,7 +18,10 @@ class CategoryList(ListView):
 
 
 def CategoryDetail(request, slug):
-    category = Category.objects.get(slug=slug)
+    try:
+        category = Category.objects.get(slug=slug)
+    except Category.DoesNotExist:
+        raise Http404
     product = Product.objects.filter(category=category)
     return render(request, 'shop/category_detail.html', {'category':category, 'products':product})
 
@@ -67,7 +71,10 @@ def Search(request):
 
 
 def ProductDetail(request, slug):
-    product = Product.objects.get(slug=slug)
+    try:
+        product = Product.objects.get(slug=slug)
+    except Product.DoesNotExist:
+        raise Http404
     related_products = Product.objects.filter(category=product.category).order_by('-last_update').exclude(id=product.id)[:3]
     other_products = Product.objects.filter(owner=product.owner).order_by('-last_update').exclude(id=product.id)[:3]
     reviews = Review.objects.filter(product=product.id).order_by('-created_at')
