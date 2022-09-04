@@ -18,3 +18,6 @@ def about(request):
 
 def error_404_view(request, exception):
     return render(request, 'pages/not_found.html')
+
+def error_500_view(request, *args, **kwargs):
+    return render(request, 'pages/server_internal_error.html')
