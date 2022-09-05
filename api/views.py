@@ -2,9 +2,13 @@ from django.shortcuts import render
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer
+from rest_framework import generics
+from rest_framework.views import APIView
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer
 from shop.models import Category, Product, Review
+from django.contrib.auth.models import User
 
 # GET ALL CATEGORIES
 @api_view(['GET'])
@@ -146,3 +150,30 @@ def DeleteReview(request, pk):
             review.delete()
             return Response({"status":"ok"}, status = status.HTTP_200_OK)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+#========== AUTH API ==========#
+
+# CHANGE PASSWORD VIEW
+class ChangePasswordView(UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    model = User
+    permission_classes = (IsAuthenticated,)
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+            return Response(response)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -17,4 +17,6 @@ urlpatterns = [
     path('reviews/delete/<int:pk>', views.DeleteReview),
     # SEARCH API
     path('Search', views.Search),
+    # AUTH API
+    path('users/changepassword', views.ChangePasswordView.as_view()),
 ]
