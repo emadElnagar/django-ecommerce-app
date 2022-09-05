@@ -154,7 +154,7 @@ def DeleteReview(request, pk):
 #========== AUTH API ==========#
 
 # CHANGE PASSWORD VIEW
-class ChangePasswordView(UpdateAPIView):
+class ChangePasswordView(APIView):
     serializer_class = ChangePasswordSerializer
     model = User
     permission_classes = (IsAuthenticated,)
