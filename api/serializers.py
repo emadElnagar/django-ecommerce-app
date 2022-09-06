@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from shop.models import Category, Product, Review
+from accounts.models import Profile
 from django.contrib.auth.models import User
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -15,6 +16,11 @@ class ProductSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
+        fields = '__all__'
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
         fields = '__all__'
 
 class ChangePasswordSerializer(serializers.Serializer):

@@ -6,8 +6,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer, UserProfileSerializer
 from shop.models import Category, Product, Review
+from accounts.models import Profile
 from django.contrib.auth.models import User
 
 # GET ALL CATEGORIES
@@ -152,6 +153,17 @@ def DeleteReview(request, pk):
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 #========== AUTH API ==========#
+
+# USER PROFILE VIEW
+class UserProfile(APIView):
+    # Get profile data
+    def get(self, request, pk):
+        try:
+            profile = Profile.objects.get(id = pk)
+        except Profile.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = UserProfileSerializer(profile, many = False)
+        return Response(serializer.data)
 
 # CHANGE PASSWORD VIEW
 class ChangePasswordView(APIView):

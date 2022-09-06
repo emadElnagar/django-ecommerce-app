@@ -19,4 +19,5 @@ urlpatterns = [
     path('Search', views.Search),
     # AUTH API
     path('users/changepassword', views.ChangePasswordView.as_view()),
+    path('users/profile/<int:pk>', views.UserProfile.as_view()),
 ]
