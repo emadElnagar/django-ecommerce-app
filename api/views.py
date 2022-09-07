@@ -198,6 +198,15 @@ class UserView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+# DELETE ACCOUNT
+@api_view(['DELETE'])
+def DeleteUser(request):
+    user = request.user
+    if user.is_authenticated:
+        user.delete()
+        return Response({"status":"ok"}, status = status.HTTP_200_OK)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 # CHANGE PASSWORD VIEW
 class ChangePasswordView(APIView):
     serializer_class = ChangePasswordSerializer
