@@ -164,6 +164,18 @@ class UserProfile(APIView):
             return Response(status = status.HTTP_404_NOT_FOUND)
         serializer = UserProfileSerializer(profile, many = False)
         return Response(serializer.data)
+    # update user profile data
+    def put(self, request, pk):
+        try:
+            profile = Profile.objects.get(id = pk)
+        except Profile.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = UserProfileSerializer(profile, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
 
 # CHANGE PASSWORD VIEW
 class ChangePasswordView(APIView):
