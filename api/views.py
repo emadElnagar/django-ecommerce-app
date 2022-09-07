@@ -178,6 +178,7 @@ class UserProfile(APIView):
 
 # USER DATA VIEW
 class UserView(APIView):
+    # Get user data
     def get(self, request, pk):
         try:
             user = User.objects.get(id = pk)
@@ -185,6 +186,17 @@ class UserView(APIView):
             return Response(status = status.HTTP_404_NOT_FOUND)
         serializer = UserSerializer(user, many = False)
         return Response(serializer.data)
+    # Update user data
+    def put(self, request, pk):
+        try:
+            user = User.objects.get(id = pk)
+        except User.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = UserSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # CHANGE PASSWORD VIEW
 class ChangePasswordView(APIView):
