@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer, UserProfileSerializer
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer, UserProfileSerializer, UserSerializer
 from shop.models import Category, Product, Review
 from accounts.models import Profile
 from django.contrib.auth.models import User
@@ -173,9 +173,18 @@ class UserProfile(APIView):
         serializer = UserProfileSerializer(profile, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            print(serializer.data)
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
+
+# USER DATA VIEW
+class UserView(APIView):
+    def get(self, request, pk):
+        try:
+            user = User.objects.get(id = pk)
+        except User.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = UserSerializer(user, many = False)
+        return Response(serializer.data)
 
 # CHANGE PASSWORD VIEW
 class ChangePasswordView(APIView):

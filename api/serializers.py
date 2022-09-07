@@ -23,6 +23,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
 class ChangePasswordSerializer(serializers.Serializer):
     class Meta:
         model = User
