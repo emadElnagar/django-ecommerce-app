@@ -22,4 +22,5 @@ urlpatterns = [
     path('users/profile/<int:pk>', views.UserProfile.as_view()),
     path('users/user/delete', views.DeleteUser),
     path('users/user/<int:pk>', views.UserView.as_view()),
+    path('users/signup', views.SignUp),
 ]

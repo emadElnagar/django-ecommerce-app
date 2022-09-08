@@ -198,6 +198,16 @@ class UserView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+# SIGN UP
+@api_view(['POST'])
+def SignUp(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
+
 # DELETE ACCOUNT
 @api_view(['DELETE'])
 def DeleteUser(request):
