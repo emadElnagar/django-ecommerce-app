@@ -6,9 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer, UserProfileSerializer, UserSerializer
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ChangePasswordSerializer, UserProfileSerializer, UserSerializer, OrderSerializer
 from shop.models import Category, Product, Review
 from accounts.models import Profile
+from cart.models import Order
 from django.contrib.auth.models import User
 
 # GET ALL CATEGORIES
@@ -241,3 +242,13 @@ class ChangePasswordView(APIView):
             }
             return Response(response)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#========== ORDER API ==========#
+
+# Order
+class OrderView(APIView):
+    def get(self, request):
+        customer = request.user
+        orders = Order.objects.filter(customer = customer)
+        serializer = OrderSerializer(orders, many = True)
+        return Response(serializer.data)

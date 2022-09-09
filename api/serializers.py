@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from shop.models import Category, Product, Review
 from accounts.models import Profile
+from cart.models import Order
 from django.contrib.auth.models import User
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -33,3 +34,9 @@ class ChangePasswordSerializer(serializers.Serializer):
         model = User
         old_password = serializers.CharField(required=True)
         new_password = serializers.CharField(required=True)
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        # fields = '__all__'
+        exclude = ('expire','customer')

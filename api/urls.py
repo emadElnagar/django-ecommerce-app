@@ -23,4 +23,6 @@ urlpatterns = [
     path('users/user/delete', views.DeleteUser),
     path('users/user/<int:pk>', views.UserView.as_view()),
     path('users/signup', views.SignUp),
+    # ORDER API
+    path('checkout/order', views.OrderView.as_view()),
 ]
