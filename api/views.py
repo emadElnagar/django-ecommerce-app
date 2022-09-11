@@ -261,3 +261,13 @@ class OrderView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+# SINGLE ORDER
+class SingleOrder(APIView):
+    # Get single order
+    def get(self, request, pk):
+        order = Order.objects.get(id = pk)
+        if request.user.is_authenticated and request.user.id == order.customer.id:
+            serializer = OrderSerializer(order, many = False)
+            return Response(serializer.data)
+        return Response(status = status.HTTP_404_NOT_FOUND)

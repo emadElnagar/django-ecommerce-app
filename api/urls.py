@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/signup', views.SignUp),
     # ORDER API
     path('checkout/order', views.OrderView.as_view()),
+    path('checkout/order/<int:pk>', views.SingleOrder.as_view()),
 ]
