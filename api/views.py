@@ -266,8 +266,24 @@ class OrderView(APIView):
 class SingleOrder(APIView):
     # Get single order
     def get(self, request, pk):
-        order = Order.objects.get(id = pk)
+        try:
+            order = Order.objects.get(id = pk)
+        except Order.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
         if request.user.is_authenticated and request.user.id == order.customer.id:
             serializer = OrderSerializer(order, many = False)
             return Response(serializer.data)
-        return Response(status = status.HTTP_404_NOT_FOUND)
+        return Response(status = status.HTTP_403_FORBIDDEN)
+    # Delete order
+    def delete(self, request, pk):
+        try:
+            order = Order.objects.get(id = pk)
+        except Order.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        if request.user.is_authenticated and request.user.id == order.customer.id:
+            if order:
+                order.delete()
+                return Response({"status":"ok"}, status = status.HTTP_200_OK)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        return Response(status = status.HTTP_403_FORBIDDEN)
+
