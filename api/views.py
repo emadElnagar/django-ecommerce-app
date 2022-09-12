@@ -285,5 +285,5 @@ class SingleOrder(APIView):
                 order.delete()
                 return Response({"status":"ok"}, status = status.HTTP_200_OK)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        return Response(status = status.HTTP_403_FORBIDDEN)
+        return Response(status = HTTP_405_METHOD_NOT_ALLOWED)
 
