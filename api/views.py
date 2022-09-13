@@ -286,4 +286,16 @@ class SingleOrder(APIView):
                 return Response({"status":"ok"}, status = status.HTTP_200_OK)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         return Response(status = HTTP_405_METHOD_NOT_ALLOWED)
-
+    # Update order
+    def put(self, request, pk):
+        try:
+            order = Order.objects.get(id = pk)
+        except Order.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        if request.user.is_authenticated and request.user.id == order.customer.id:
+            serializer = OrderSerializer(order, data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        return Response(status = HTTP_405_METHOD_NOT_ALLOWED)
