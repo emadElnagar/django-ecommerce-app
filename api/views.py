@@ -250,17 +250,21 @@ class OrderView(APIView):
     # Get user orders
     def get(self, request):
         customer = request.user
-        orders = Order.objects.filter(customer = customer)
-        serializer = OrderSerializer(orders, many = True)
-        return Response(serializer.data)
+        if customer.is_authenticated:
+            orders = Order.objects.filter(customer = customer)
+            serializer = OrderSerializer(orders, many = True)
+            return Response(serializer.data)
+        return Response(status = status.HTTP_403_FORBIDDEN)
     # New order
     def post(self, request):
         customer = request.user
-        serializer = OrderSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        if customer.is_authenticated:
+            serializer = OrderSerializer(data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        return Response(status = status.HTTP_403_FORBIDDEN)
 
 # SINGLE ORDER
 class SingleOrder(APIView):
