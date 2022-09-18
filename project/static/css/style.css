@@ -823,6 +823,15 @@ table .delete {
 table .delete:hover {
   color: var(--main-color);
 }
+table .btn-cart {
+  background: transparent;
+}
+table .btn-cart i:hover {
+  transition: all .3s ease;
+}
+table .btn-cart i:hover {
+  color: var(--main-color);
+}
 .checkout {
   display: flex;
   justify-content: center;

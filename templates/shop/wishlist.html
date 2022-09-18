@@ -30,7 +30,7 @@
                                 <form action="{% url 'cart:add_to_cart' product.slug %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_slug" value="{{product.slug}}">
-                                    <button>add to cart</button>
+                                    <button class="btn-cart"><i class="fas fa-shopping-cart fa-fw"></i></button>
                                 </from>
                             </td>
                         </tr>
