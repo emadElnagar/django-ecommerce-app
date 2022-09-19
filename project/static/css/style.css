@@ -54,6 +54,12 @@ h1, h2, h3, h4, h5, h6 {
 .main-heading {
   margin-bottom: 40px;
 }
+.success {
+  color: #00B300;
+}
+.danger {
+  color: #f00
+}
 /*========== START SETTING BOX ==========*/
 .setting-box {
   background: var(--main-ele-color);

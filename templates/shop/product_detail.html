@@ -109,7 +109,9 @@
                         {% endif %}
 
                         {% if product.is_valid == True %}
-                            <li>in stock</li>
+                            <li class="success">in stock</li>
+                        {% else %}
+                            <li class="danger">out of stock</li>
                         {% endif %}
 
                         <li class="description">{{ product.description|safe }}</li>

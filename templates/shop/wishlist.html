@@ -22,9 +22,13 @@
                             <td class="img-row"><img src="{{product.image.url}}"></td>
                             <td>{{product.get_price}}$</td>
                             {% if product.is_valid == True %}
-                                <td>in stock</td>
+                                <td>
+                                    <span class="success">in stock</span>
+                                </td>
                             {% else %}
-                                <td>sold out</td>
+                                <td>
+                                    <span class="danger">sold out</span>
+                                </td>
                             {% endif %}
                             <td>
                                 <form action="{% url 'cart:add_to_cart' product.slug %}" method="POST">
