@@ -22,6 +22,7 @@
             {% else %}
                 <div class="registration-form">
                     <form method="post" action="{% url 'login' %}" class=" my-form">
+                        <h1 class="text-center main-heading">login</h1>
                         {{form}}
                         {% csrf_token %}
                         <input type="submit" value="login" class="my-button">
